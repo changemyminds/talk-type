@@ -37,9 +37,9 @@ An offline push-to-talk dictation tool for Windows, tuned for Traditional Chines
 
 ### Updating
 
-Versions after v0.11.0 check this repository for new releases at start-up and once a day. When one is available, the tray menu offers **Update** and a link to the release notes; the download is verified (SHA-256) before the program replaces itself and restarts. Settings, dictionary and models are kept. The previous executable is left as `talk_type.old.exe` in case you need to roll back.
+Starting with v0.12.0, talk-type checks this repository for new releases at start-up and once a day. When one is available, the tray menu offers **Update** and a link to the release notes; the download is verified (SHA-256 and an Ed25519 signature from the release pipeline) before the program replaces itself and restarts. Settings, dictionary and models are kept. The previous executable is left as `talk_type.old.exe` in case you need to roll back.
 
-For v0.11.0 and earlier, quit talk-type from the tray, then repeat the install steps with the new zip.
+To update manually, quit talk-type from the tray, then repeat the install steps with the new zip.
 
 ### Privacy and network use
 
@@ -85,9 +85,9 @@ A personal project, provided as is, without warranty of any kind.
 
 ### 更新
 
-v0.11.0 之後的版本會在啟動時與每天一次檢查這個 repo 有沒有新版。有新版時，系統匣出現「更新」和版本說明的連結；按下後下載、驗證 SHA-256，通過才換掉程式並重新啟動。設定檔、字典與模型都會保留；舊版的執行檔留成 `talk_type.old.exe`，需要時可以手動換回。
+v0.12.0 起，talk-type 會在啟動時與每天一次檢查這個 repo 有沒有新版。有新版時，系統匣出現「更新」和版本說明的連結；按下後下載、驗證 SHA-256 與發版流程的 Ed25519 簽章，通過才換掉程式並重新啟動。設定檔、字典與模型都會保留；舊版的執行檔留成 `talk_type.old.exe`，需要時可以手動換回。
 
-v0.11.0（含）以前的版本：先從系統匣「結束」，再用新的 zip 照安裝步驟做一次。
+想手動更新時：先從系統匣「結束」，再用新的 zip 照安裝步驟做一次。
 
 ### 隱私與連網
 
