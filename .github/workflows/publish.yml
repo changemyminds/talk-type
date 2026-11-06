@@ -1,0 +1,46 @@
+name: Publish release
+
+# The private build (side-project, talk_type-build-exe) pushes a branch incoming/vX.Y.Z on top of main
+# with talk-type-vX.Y.Z.zip, its .sig and NOTES.md. This job turns it into the Release vX.Y.Z and
+# deletes the branch, so the zip never lands in main's history. An existing release is left untouched.
+on:
+  push:
+    branches:
+      - "incoming/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: true
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          tag="${BRANCH#incoming/}"
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "not a release branch: $BRANCH" >&2
+            exit 1
+          fi
+          zip="talk-type-$tag.zip"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "$tag already exists; left unchanged"
+          else
+            test -s "$zip" && test -s "$zip.sig" && test -s NOTES.md
+            test "$(stat -c %s "$zip.sig")" -eq 64
+            gh release create "$tag" "$zip" "$zip.sig" \
+              --target main --title "talk-type $tag" --notes-file NOTES.md
+          fi
+          git push origin --delete "$BRANCH"
