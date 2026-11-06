@@ -46,7 +46,7 @@ Offline push-to-talk dictation for Windows, tuned for Traditional Chinese mixed 
 
 ## Features
 
-| | |
+| Feature | Details |
 |---|---|
 | **Works in any app** | Hold Right Ctrl (configurable), speak, release. The text is pasted wherever the cursor is. A toggle mode covers longer passages. |
 | **On-device recognition** | Audio never leaves your computer. Switch between six open models from the tray menu: Qwen3-ASR, Whisper, Breeze-ASR-25, SenseVoice, X-ASR and Parakeet. |
@@ -60,11 +60,10 @@ Offline push-to-talk dictation for Windows, tuned for Traditional Chinese mixed 
 
 ```mermaid
 flowchart LR
-    A["Hold the trigger key"] --> B["Record from<br/>default microphone"]
-    B --> C["Recognise on device<br/>(CPU or GPU)"]
-    C --> D["Traditional Chinese,<br/>punctuation, dictionary"]
-    D -. "optional" .-> E["Rewrite via your<br/>LLM service"]
-    D --> F["Paste at the cursor"]
+    A["Hold the key<br/>and speak"] --> C["Recognise<br/>on device"]
+    C --> D["Clean up<br/>and correct"]
+    D -. "optional" .-> E["Rewrite via<br/>your LLM"]
+    D --> F["Paste at<br/>the cursor"]
     E --> F
 ```
 
